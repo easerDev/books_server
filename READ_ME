@@ -1,0 +1,45 @@
+#TUTO : https://medium.com/@dushan14/create-a-web-application-with-python-flask-postgresql-and-deploy-on-heroku-243d548335cc
+
+
+Steps we follow here,
+
+    Install PostgreSQL to local machine
+    Install Heroku CLI
+    Create python virtual environment for the project
+    Create a sample code with Flask to check
+    Create database
+    Create configurations
+    Database migration
+    Finish the code
+    Commit changes using git and push to Heroku
+
+
+ #Cration dune bdd postgresql
+ sudo -u alan createdb nom_bdd
+
+
+ #config.py =>  Variable d'environement : SECRET_KEY SQLALCHEMY_DATABASE_URI DEVELOPMENT TESTING
+
+ #export XX=""  => ecrire dans une variable d'environement
+ #echo $XX => pour afficher une variable d'environement
+
+
+#models.py => la structure des tables de la bdd
+
+#manage.py => pour gerer initialisation de la bdd
+#Attention remplacer 'postgresql://localhost/db_name'" par postgresql:///db_name'  (export DATABASE_URL="postgresql://localhost/books_store")
+python manage.py db init  #=> creation d'un dossier migration
+python manage.py db migrate
+python manage.py db upgrade
+psql -U alan -d nom_bdd => \dt pour avoir des details de la bdd, \d nom_table pour avoir la structure d'une table
+
+
+#Desormais pour lancer le serveur : python manage.py runserver  =>api + bdd ok
+
+
+#On cree une page html getdata.html
+
+#Pour la mise en production
+#Fichiers a la racine : 
+#runtime.txt  => Pour specifier la version de python
+#Procfile => Pour lancer le webserver gunicorn (en production on peut pas lancer flask directement)
